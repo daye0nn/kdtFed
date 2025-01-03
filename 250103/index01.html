@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./style01.css" /> -->
+    <title>Document</title>
+    <style>
+      /*reset css*/
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* h1 {
+        background: crimson;
+      } */
+
+      p {
+        color: brown;
+        &#special {
+          color: dodgerblue;
+        }
+      }
+      /* #special {
+        color: dodgerblue;
+      } */
+      .bgstyle {
+        background: aqua;
+      }
+      /* li {
+        &#second {
+          background: aqua;
+        }
+        &#fourth {
+          background:aqua;
+        }
+      } */
+      /* input {
+        &[type="text"] {
+          background: crimson;
+        }
+        &[type="password"] {
+          background: dodgerblue;
+        }
+      } */
+      #header {
+        & > h1 {
+          color: brown;
+        }
+      }
+      #listEX {
+        #firstLi + li {
+          color: crimson;
+        }
+        #firstLi ~ li {
+          font-size: 30px;
+        }
+      }
+      h3 {
+        &:hover {
+          color: aqua;
+        }
+        &:active {
+          color: crimson;
+        }
+      }
+
+      input {
+        &:enabled {
+          background: greenyellow;
+        }
+        &:disabled {
+          background: gainsboro;
+        }
+        &:focus {
+          background: tomato;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1 style="background: crimson">오늘은 신나는 금요일</h1> -->
+    <h1>오늘은 신나는 금요일</h1>
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore pariatur
+      totam iste tempore, repudiandae laudantium sequi ipsum placeat fugiat
+      quaerat. Quidem sunt rerum natus quia fugit earum eligendi voluptate ipsa.
+    </p>
+    <p id="special">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore ex neque
+      quia repellat nostrum. Quis, quaerat, enim explicabo, suscipit ratione
+      tempora impedit quos officiis laboriosam eius eaque quibusdam iure rerum!
+      Accusantium, libero earum, quod soluta inventore tenetur recusandae
+      voluptas expedita, vero commodi magni maiores non minima doloribus autem
+      sed dolorem quasi asperiores. Voluptatum aspernatur reiciendis sit
+      repudiandae velit laudantium enim. Aliquid sapiente impedit non accusamus,
+      maxime eligendi tempore corporis dolores, aperiam nam fugit, esse vero a
+      eius beatae laudantium placeat dicta laboriosam ad pariatur assumenda? Ad
+      nobis excepturi voluptates consequatur. Praesentium, reprehenderit
+      nesciunt saepe laboriosam error iusto et labore non fugit dicta soluta
+      quasi minima cum, harum ipsum obcaecati maiores numquam ab ad consequatur
+      voluptate iste eum doloribus nam. Repellendus.
+    </p>
+    <ul id="listEX">
+      <li id="firstLi">첫 번째</li>
+      <li class="bgstyle">두 번째</li>
+      <li>세 번째</li>
+      <li class="bgstyle">네 번째</li>
+    </ul>
+    <hr />
+    <form action="">
+      <input type="text" name="" id="" /><input type="password" name="" id="" />
+    </form>
+    <hr />
+    <div id="header">
+      <h1 id="title">Lorem Ipsum</h1>
+      <div id="nav">
+        <h1>Navigation</h1>
+      </div>
+    </div>
+    <h3>User Action Selector</h3>
+    <hr />
+    <form action="">
+      <h2>Enabled</h2>
+      <input type="text" name="enabled" id="enabled" enabled />
+      <h2>Disabled</h2>
+      <input type="text" name="disabled" id="disabled" disabled />
+    </form>
+  </body>
+</html>
