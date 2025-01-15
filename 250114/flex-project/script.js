@@ -19,3 +19,14 @@ window.addEventListener("scroll", () => {
 
 //document.querySelector("#circle");
 //문서 => 개발자가 직접 작성한 html문서
+
+/* slick slider*/
+$(document).ready(function () {
+  $(".myslider").slick({
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    infinite: false,
+    dots: true,
+    speed: 300,
+  });
+});
