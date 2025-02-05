@@ -27,7 +27,7 @@ const addItem = (todo) => {
 
     li.append(span, button);
     li.id = todo.id;
-    ul.appendChild(li);
+    ul.prepend(li);
   }
 };
 
@@ -39,7 +39,9 @@ const handler = (event) => {
   };
   todos.push(todo);
   addItem(todo);
-  save();
+  if (todo.text !== "") {
+    save();
+  }
   userInput.value = "";
 };
 
