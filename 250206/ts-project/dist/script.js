@@ -1,0 +1,12 @@
+// let numA = 100;
+// let strA = "Hello";
+// const numArr: number[] = [1, 2, 3];
+// const strArr: string[] = ["Hello", "World"];
+// const boolArr01: boolean[] = [true, false, true];
+// const boolArr02: Array<boolean> = [true, false, true];
+const tup1 = [1, 2];
+//tup1 = [1,2,3];
+let tup3 = [1, 2];
+tup3.push(1);
+console.log(tup3);
+export {};
