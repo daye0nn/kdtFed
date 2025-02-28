@@ -1,14 +1,20 @@
-const productInfo = "./db.json";
+//로컬에서 db생성 => 단점 : json파일을 공유해야함
+// const productInfo = "./db.json";
+
+// const productInfo =
+//   "https://raw.githubusercontent.com/dayeon123/array-project/refs/heads/main/db.json";
+const productInfo =
+  "https://my-json-server.typicode.com/dayeon123/array-project/data";
 
 const ul = document.querySelector("ul");
-
+// db.json
 fetch(productInfo)
   // json Data 찾아오기
   .then((response) => response.json())
   .then((data) => {
     let idCounter = Date.now();
     const products = {
-      data: data.data.map((item) => ({
+      data: data.map((item) => ({
         ...item,
         id: idCounter++,
       })),
@@ -51,7 +57,10 @@ fetch(productInfo)
       ul.appendChild(li);
 
       li.addEventListener("click", () => {
-        window.location.href = "product-detail.html";
+        const url = `product-detail.html?category=${encodeURIComponent(
+          product.category
+        )}&name=${encodeURIComponent(product.name)}`;
+        window.location.href = url;
       });
     };
 
