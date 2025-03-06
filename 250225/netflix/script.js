@@ -46,7 +46,7 @@ const createElement = (movie, index, category) => {
   vote.innerText = `⭐️${parseFloat(vote_average).toFixed(2)}`;
 
   li.className = id;
-  li.setAttribute("date-category", category);
+  li.setAttribute("data-category", category);
 
   moviePoster.append(img, ageLimit, movieNum);
   movieTitle.innerText = title;
@@ -87,13 +87,18 @@ const topRated = async () => {
   return results;
 };
 
+// Generes DB
+const movieGeneres = async () => {
+  const url = `${tmdbCommand}/genre/movie/list?api_key=${API_KEY}&language=ko-KR`;
+  const response = await fetch(url);
+  const { genres } = await response.json();
+  return genres;
+};
+
 // Promise DBs
 const getMovies = async () => {
-  const [nowPlayingMovie, upComingMovie, topRatedMovie] = await Promise.all([
-    nowPlaying(),
-    upComing(),
-    topRated(),
-  ]);
+  const [nowPlayingMovie, upComingMovie, topRatedMovie, generes] =
+    await Promise.all([nowPlaying(), upComing(), topRated(), movieGeneres()]);
 
   // Movie Items
   nowPlayingMovie.forEach((movie, index) => {
@@ -207,6 +212,162 @@ const getMovies = async () => {
   );
   initializeSlider(".upcoming ul", "#upcomingRightArrow", "#upcomingLeftArrow");
   initializeSlider(".toprated ul", "#topratedRightArrow", "#topratedLeftArrow");
+
+  // Popup Modal
+  const movieItems = document.querySelectorAll(".movie li");
+  const movieModal = document.querySelector(".modal-overlay");
+
+  movieItems.forEach((movieItem) => {
+    movieItem.addEventListener("click", () => {
+      movieModal.innerHTML = "";
+      movieModal.classList.add("active");
+      const id = parseInt(movieItem.className);
+      const category = movieItem.getAttribute("data-category");
+      let movie;
+
+      switch (category) {
+        case "nowplaying":
+          movie = nowPlayingMovie.find((movie) => movie.id === id);
+          break;
+        case "upcoming":
+          movie = upComingMovie.find((movie) => movie.id === id);
+          break;
+        case "toprated":
+          movie = topRatedMovie.find((movie) => movie.id === id);
+          break;
+      }
+
+      if (!movie) {
+        console.error("Movie Not Found");
+        return;
+      }
+      console.log(movie);
+
+      let {
+        adult,
+        backdrop_path,
+        genre_ids,
+        original_language,
+        overview,
+        popularity,
+        poster_path,
+        release_date,
+        title,
+        video,
+        vote_average,
+        vote_count,
+      } = movie;
+
+      const modalContent = document.createElement("div");
+      modalContent.className = "modal-content";
+      adult = adult === false ? "전체관람가" : "18세이상";
+      switch (original_language) {
+        case "en":
+          original_language = "영어";
+          break;
+        case "es":
+          original_language = "스페인";
+          break;
+        case "lv":
+          original_language = "라트비아";
+          break;
+        case "zh":
+          original_language = "중국";
+          break;
+        case "ko":
+          original_language = "한국";
+          break;
+        case "ja":
+          original_language = "일본";
+          break;
+        case "hi":
+          original_language = "힌두어";
+          break;
+      }
+
+      const genreNames = genre_ids.map((id) => {
+        const genre = generes.find((g) => g.id === id);
+        return genre ? genre.name : "Unknown";
+      });
+
+      modalContent.innerHTML = `
+      <div class="modal-content">
+        <div class="modal-top">
+          <div class="modal-photo">
+            <img
+              src="https://image.tmdb.org/t/p/original/${poster_path}"
+              alt="modal-photo"
+            />
+          </div>
+          <form action="#" method="get">
+            <section class="modal-info">
+              <h1>${title}</h1>
+              <div>
+                <span><em>${release_date}</em></span>
+                <span><em>${adult}</em></span>
+                <span>인기평점 <em>${parseFloat(vote_average).toFixed(
+                  2
+                )}</em></span>
+                <span>투표자수 <em>${vote_count.toLocaleString()}명</em></span>
+              </div>
+            </section>
+            <section class="modal-button">
+              <a href="#">
+                <i class="fas fa-circle-play"></i>
+                예고편 재생
+              </a>
+              <a href="#">
+                <i class="fas fa-comment"></i>
+                ${vote_count.toLocaleString()}
+              </a>
+              <a href="#">
+                <i class="fas fa-share-nodes"></i>
+                공유하기
+              </a>
+            </section>
+            <section class="modal-desc">
+              <p>
+                ${overview}
+              </p>
+            </section>
+            <input type="submit" value="결제하기" />
+          </form>
+        </div>
+        <div class="modal-bottom">
+          <section class="modal-detail">
+            <h1>영화정보</h1>
+            <div>
+              <span>장르</span>
+              <span>${genreNames}</span>
+            </div>
+            <div>
+              <span>언어</span>
+              <span>${original_language}</span>
+            </div>
+            <div>
+              <span>인기점수</span>
+              <span>${popularity.toLocaleString()} / 10000점</span>
+            </div>
+          </section>
+          <section class="modal-poster">
+            <img
+              src="https://image.tmdb.org/t/p/original/${backdrop_path}"
+              alt="modal-poster"
+            />
+          </section>
+          <section class="modal-trailer"></section>
+        </div>
+        <div class="modal-close">
+          <i class="fas fa-xmark"></i>
+        </div>
+      </div>`;
+      movieModal.appendChild(modalContent);
+      const modalclose = document.querySelector(".modal-close");
+      modalclose.addEventListener("click", () => {
+        movieModal.classList.remove("active");
+      });
+    });
+  });
 
   // Main Slider
   const mainSlider = document.querySelector(".mainSlider");
