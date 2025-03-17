@@ -1,4 +1,30 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
+
+const CompA = () => {
+  console.log("컴포넌트가 호출되었습니다."); // 횡단괌심사 대상
+  return <div>CompA</div>;
+};
+
+const CompB = () => {
+  console.log("컴포넌트가 호출되었습니다."); // 횡단괌심사 대상
+  return <div>CompB</div>;
+};
+
+// 고차컴포넌트 생성
+const withLifeCycle = (WrapperComponent) => {
+  return (props) => {
+    useEffect(() => {
+      console.log("Mount!");
+      return () => console.log("Unmount!");
+    }, []);
+
+    useEffect(() => {
+      console.log("Update");
+    });
+
+    return <WrapperComponent {...props} />;
+  };
+};
 
 // 상태 변화 코드 함수
 const reducer = (state, action) => {
