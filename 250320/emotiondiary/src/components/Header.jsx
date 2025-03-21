@@ -22,7 +22,7 @@ const Header = ({ title, leftChild, rightChild }) => {
   return (
     <Wrapper>
       <LeftChild>{leftChild}</LeftChild>
-      <Title>Home</Title>
+      <Title>{title}</Title>
       <RightChild>{rightChild}</RightChild>
     </Wrapper>
   );
