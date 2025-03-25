@@ -54,11 +54,15 @@ export const getFormattedDate = (targetDate) => {
   const year = targetDate.getFullYear();
   let month = targetDate.getMonth() + 1;
   let date = targetDate.getDate();
+  let hours = targetDate.getHours();
+  let minutes = targetDate.getMinutes();
 
   if (month < 10) month = `0${month}`;
   if (date < 10) date = `0${date}`;
+  if (hours < 10) hours = `0${hours}`;
+  if (minutes < 10) minutes = `0${minutes}`;
 
-  return `${year}-${month}-${date}`;
+  return `${year}-${month}-${date} ${hours}:${minutes}`;
 };
 
 export const getMonthRangeByDate = (date) => {
@@ -76,4 +80,9 @@ export const getMonthRangeByDate = (date) => {
     59
   ).getTime();
   return { beginTimeStamp, endTimeStamp };
+};
+
+export const setPageTitle = (title) => {
+  const titleElement = document.getElementsByTagName("title")[0];
+  titleElement.innerText = title;
 };
