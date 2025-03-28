@@ -103,6 +103,23 @@ body {
     }
     &#sec0 {
       background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+      .inner {
+        svg,
+        img {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+        }
+        .svg1 {
+          fill: none;
+          stroke: #fff;
+          transform: translate(-49.5%, -49.5%);
+        }
+        .svg2 {
+          width: 657px;
+          transform: translate(-50%, -50%);
+        }
+      }
     }
     &#sec1 {
       background-image: linear-gradient(
@@ -111,6 +128,44 @@ body {
         #fdcbf1 1%,
         #e6dee9 100%
       );
+      .inner {
+        flex-direction: column;
+        h1 {
+          img {
+            width: 400px;
+          }
+        }
+        .gage_wrap {
+          width: 500px;
+          margin-top: 50px;
+          ul {
+            display: flex;
+            li {
+              width: 25%;
+              text-align: center;
+              .gage {
+                width: 15px;
+                height: 150px;
+                background: rgba($color: #ffffff, $alpha: 0.2);
+                position: relative;
+                margin: 0 auto;
+                padding: 5px;
+                .gage_in {
+                  position: absolute;
+                  bottom: 0;
+                  width: 5px;
+                  height: 0;
+                  background: map-get($map: $color, $key: light);
+                }
+              }
+              .gage_tit {
+                color: map-get($map: $color, $key: light);
+                margin-top: 20px;
+              }
+            }
+          }
+        }
+      }
     }
     &#sec2 {
       background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);

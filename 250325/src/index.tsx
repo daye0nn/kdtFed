@@ -1,19 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createGlobalStyle } from "styled-components";
+import ReactDOM from "react-dom/client";
 import reset from "styled-reset";
 
 //스타일
 const GlobalStyles = createGlobalStyle`
 //폰트
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
-
 //리셋
 ${reset}
 * {
   box-sizing: border-box;
 }
+:root {
+  --light-color: #fff;
+  --circle-color: #00a5ff;
+}
+
 ul, li {
   list-style: none;
 }
